@@ -42,11 +42,12 @@
 }
 
 .login-input-section{
-    margin: 50px 0;
+    margin-top: 50px;
+    margin-bottom: 30px;
 }
 
 #login-form > a {
-    display: block;  /* display 속성 추가 */
+    display: block;
     margin-top: 20px;
     text-decoration: none;
     color: black;
@@ -54,7 +55,7 @@
 }
 
 #login-form > a:hover {
-    color: #0797FF
+    color: #1c7dcd
 }
 
 .levain-button {

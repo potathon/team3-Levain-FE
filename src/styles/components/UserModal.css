@@ -1,7 +1,7 @@
 .UserModal {
     box-sizing: border-box;
-    width: 170px;
-    height: 220px;
+    width: 185px;
+    height: 280px;
     position: absolute;
     z-index: 1000;
     background-color: white;
@@ -35,8 +35,8 @@
     margin-bottom: 5px;
 }
 
-.myPage-section, .logout-section {
-    width: 170px;
+.myPage-section, .logout-section, .password-section {
+    width: 185px;
     height: 55px;
     cursor: pointer;
     display: flex;
@@ -62,7 +62,7 @@
     height: 20px;
 }
 
-.myPage-section > span, .logout-section > span {
+.myPage-section > span, .password-section > span, .logout-section > span {
     font-size: 18px;
     font-weight: 500;
     transition: font-weight 0.3s ease;
@@ -70,6 +70,12 @@
 
 .myPage-section:hover {
     background-color: rgba(4, 151, 255, 0.3);
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.password-section:hover {
+    background-color: rgba(255, 125, 4, 0.3);
     transform: scale(1.02);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -84,6 +90,10 @@
     background-color: #0497FF;
 }
 
+.password-section:hover .icon {
+    background-color: #ff7d04;
+}
+
 .logout-section:hover .icon {
     background-color: #E64343;
 }
@@ -92,10 +102,14 @@
     color: #0497FF;
 }
 
+.password-section:hover span {
+    color: #ff7d04;
+}
+
 .logout-section:hover span {
     color: #E64343;
 }
 
-.myPage-section:hover span, .logout-section:hover span {
+.myPage-section:hover span, .password-section:hover span, .logout-section:hover span {
     font-weight: 800;
 }

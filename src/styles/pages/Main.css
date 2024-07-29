@@ -15,9 +15,10 @@
 .Main-title {
     font-size: 100px;
     font-family: "Space Mono", monospace;
-    color: #0797FF; /* 필요에 따라 색상을 변경하세요 */
+    color: #0797FF;
     margin-bottom: 400px;
     position: fixed;
+    white-space: nowrap;
 }
 
 .Main > img{

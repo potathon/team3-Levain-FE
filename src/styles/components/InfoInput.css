@@ -1,20 +1,49 @@
-.InfoInputBox .InputBoxContent{
-    background-color: #E0E0E0;
-    border: none;
-    border-radius: 10px;
-    font-size: 20px;
-    font-weight: 300;
-
-    width: 350px;
-    height: 50px;
-
-    margin: 15px 0;
-    padding-left: 30px;
+.InfoInputBox {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
-.helper{
+.InputBoxContent {
+    background-color: transparent;
+    /* box-shadow: 1px 1px inset gray; */
+    border-bottom: 1px solid rgb(163, 163, 163);
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 300;
+    width: 330px;
+    height: 50px;
+    padding-left: 18px;
+    box-sizing: border-box;
+}
+
+.InputBoxContent:focus {
+    border: 2px solid #1c7dcd;
+    outline: none;
+}
+
+.InputLabel {
+    position: absolute;
+    left: 100px;
+    top: 15px;
+    font-size: 15px;
+    color: #636363;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.InputBoxContent.focused + .InputLabel,
+.InputLabel.focused {
+    top: -25px;
+    left: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0062b2
+}
+
+.helper {
     font-size: 13px;
     color: rgb(180, 1, 1);
-    margin-right: 250px;
+    margin-left: 75px;
     min-height: 15px;
 }
