@@ -9,5 +9,6 @@ export const API_PASSWORD_CHECK = `${API_USERS}/password/check`;
 export const API_LETTERS = "http://localhost:8080/api/letters";
 export const API_ONE_LETTER = `${API_LETTERS}/:letterId`;
 
-
 export const API_ICONS = "http://localhost:8080/api/icons";
+export const API_PURCHASE = `${API_ICONS}/purchase`;
+

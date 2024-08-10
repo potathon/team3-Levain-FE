@@ -4,11 +4,13 @@ import axios from 'axios';
 import '../styles/pages/LetterCreate.css';
 import { API_LETTERS } from '../config';
 
-const LetterCreate = () => {
+const LetterCreate = ({}) => {
     const { userName } = useParams();
     const location = useLocation();
     const ornamentId = location.state?.ornamentId;
+    const ornamentImage = location.state?.ornamentImage;
     const [flipCard, setFlipCard] = useState(false);
+    const [isValid, setIsValid] = useState(false);
     const [formData, setFormData] = useState({
         from: '',
         message: ''
@@ -20,56 +22,49 @@ const LetterCreate = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const [isValid, setIsValid] = useState(false);
-
+     
     useEffect(() => {
         if (formData.from && formData.message) {
             setIsValid(true);
+            console.log(formData)
+            console.log(userName)
+            console.log(ornamentId)
         } else {
             setIsValid(false);
         }
     }, [formData]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            // await axios.post('/api/send-letter', formData);
-            setFlipCard(!flipCard);
-            setTimeout(() => {
-                navigate(`/letter/${userName}`, { state: { ornamentId, from: formData.from } });
-            }, 3000);
-        } catch (error) {
-            console.error('Error sending letter:', error);
-        }
-    };
 
-    const buttonHandler = async(e) => {
-        
         if (!isValid) {
-            e.preventDefault();
             alert("모든 입력값은 필수입니다.");
             return;
         }
 
-        console.log(ornamentId);
-
-        try{
-            const token = localStorage.getItem("accessToken")
+        try {
+            const token = localStorage.getItem("accessToken");
             const response = await axios.post(API_LETTERS, {
                 content: formData.message,
                 writer: formData.from,
-                iconNum: ornamentId,
+                iconId: ornamentId,
                 receiver: userName
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
+
             console.log(response);
-        } catch(error) {
-            console.error("폼 제출 중 에러 발생", error);
+
+            setFlipCard(!flipCard);
+            setTimeout(() => {
+                navigate(`/letter/${userName}`, { state: { ornamentId, from: formData.from, ornamentImage } });
+            }, 3000);
+        } catch (error) {
+            console.error('Error sending letter:', error);
         }
-    }
+    };
 
     return (
         <div id="container">
@@ -109,7 +104,7 @@ const LetterCreate = () => {
                                         ></textarea>
                                     </div>
                                     <div className="submit">
-                                        <button type="submit" className="submit-card" onClick={buttonHandler}>Send Letter</button>
+                                        <button type="submit" className="submit-card">Send Letter</button>
                                     </div>
                                 </div>
                             </form>

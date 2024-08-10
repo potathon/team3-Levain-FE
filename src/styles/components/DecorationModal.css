@@ -16,8 +16,9 @@
     background-color: #fff;
     padding: 20px;
     border: 1px solid #888;
-    width: 85%; /* 가로 길이를 넓힘 */
-    max-width: 700px; /* 최대 너비를 더 넓힘 */
+    width: 85%;
+    max-width: 700px;
+    max-height: 600px;
     position: relative;
     text-align: center;
     border-radius: 10px;
@@ -56,52 +57,59 @@
 
 .ornament-container {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
     gap: 10px;
     margin: 20px 0;
 }
 
 .ornament-item {
-    width: 100px; /* 너비 조정 */
+    width: 100px;
+    height: 140px;
     text-align: center;
     cursor: pointer;
     padding: 5px;
+    margin: 0px 10px;
     border-radius: 5px;
-    transition: transform 0.2s; /* 클릭 시 크기 변화 애니메이션 */
+    transition: transform 0.2s;
     position: relative;
 }
 
 .ornament-background {
-    background-color: #FFF8D1; /* 배경색 추가 */
-    padding: 5px; /* 패딩 추가 */
-    border-radius: 5px; /* 테두리 반경 추가 */
-    border: 2px solid transparent; /* 기본 테두리 */
-    position: relative; /* 잠금 아이콘 배치를 위해 상대 위치 지정 */
-    transition: background-color 0.3s; /* 배경색 전환 애니메이션 */
+    width: 90px;
+    height: 90px;
+    background-color: #FFF8D1;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s;
+    margin: 0 auto;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .ornament-item.selected .ornament-background {
-    border-color: #ffa500; /* 선택된 항목의 테두리 색상 */
+    border-color: #ffa500;
     border-width: 3px;
 }
 
 .ornament-item.selected {
-    transform: scale(1.1); /* 선택된 항목의 크기를 1.1배 확대 */
+    transform: scale(1.1);
 }
 
-.ornament-image {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
+/* .ornament-image {
+    display: none;
+} */
 
 .ornament-text {
-    text-align: center; /* 텍스트 가운데 정렬 */
-    margin-top: 5px; /* 이미지와 텍스트 사이의 마진 */
-    color: black; /* 텍스트 색깔 검은색 */
-    background: #FFD700; /* 배경색 추가 */
+    width: 80px;
+    text-align: center;
+    margin-top: 5px;
+    color: black;
+    background: #FFD700;
     font-size: 15px;
+    word-wrap: break-word;
 }
 
 .locked-overlay {
@@ -110,15 +118,15 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(209, 208, 199, 0.5); /* #D1D0C7 색상에 50% 투명도 */
-    border-radius: 5px; /* 테두리 반경 추가 */
+    background-color: rgba(209, 208, 199, 0.5);
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .locked-icon {
-    width: 50%; /* 잠금 아이콘 크기 조정 */
+    width: 50%;
     height: auto;
 }
 
@@ -134,8 +142,16 @@
     margin: 5px;
 }
 
-.decoration-next-button:hover,
+.decoration-next-button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 .purchase-button:hover {
+    background-color: #ff8c00;
+}
+
+.decoration-next-button:hover:not(.disabled) {
     background-color: #ff8c00;
 }
 

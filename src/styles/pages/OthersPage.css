@@ -2,7 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden; /* 스크롤을 숨김 */
+    overflow: hidden;
 }
 
 .container {
@@ -10,24 +10,24 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0; /* 배경색 설정 */
-    background-size: cover; /* 배경 이미지를 화면에 맞춤 */
-    background-position: center; /* 배경 이미지를 가운데 정렬 */
-    position: relative; /* levainImage와 버튼 이미지를 배치하기 위해 필요 */
+    background-color: #f0f0f0;
+    background-size: cover; 
+    background-position: center; 
+    position: relative;
 }
 
 .levain-image {
-    max-width: 45%; /* levainImage의 최대 너비 설정 */
-    max-height: 45%; /* levainImage의 최대 높이 설정 */
+    max-width: 45%;
+    max-height: 45%;
     height: auto;
     display: block;
     margin: auto;
-    position: absolute; /* levainImage를 절대 위치로 설정 */
-    top: 50%; /* 부모 요소 중앙 정렬을 위해 세로 중앙 정렬 */
-    left: 50%; /* 부모 요소 중앙 정렬을 위해 가로 중앙 정렬 */
-    transform: translate(-50%, -50%); /* 중앙 정렬을 위한 변형 */
-    transition: opacity 0.5s ease-in-out; /* opacity 속성에 대한 transition 설정 */
-    opacity: 1; /* 초기에는 보이도록 설정 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.5s ease-in-out; 
+    opacity: 1; 
 }
 
 .create-letter {
