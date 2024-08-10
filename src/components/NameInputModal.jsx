@@ -11,7 +11,7 @@ function NameInputModal({ isVisible, onClose, onSave }) {
     }, [isVisible]);
 
     const handleSave = () => {
-        if (name.length === 0) {
+        if (name.trim().length === 0) { // trim()을 사용하여 공백만 있는 경우를 방지
             alert('이름을 입력해주세요.');
             return;
         }
@@ -19,7 +19,7 @@ function NameInputModal({ isVisible, onClose, onSave }) {
             alert('이름은 7글자까지 가능합니다.');
             return;
         }
-        onSave(name);
+        onSave(name.trim()); // 이름의 앞뒤 공백을 제거하여 저장
     };
 
     if (!isVisible) return null;

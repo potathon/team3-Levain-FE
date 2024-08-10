@@ -33,8 +33,9 @@ function OthersPage2() {
 
     const token = localStorage.getItem('accessToken');
 
-    // 로그인한 유저 정보 가지고 오기
+    // 처음에 마운트  
     useEffect(() => {
+        // 로그인한 유저 정보 가지고 오기
         const fetchUserName = async () => {
             try {
                 const response = await axios.get(API_USER_ME, {
@@ -42,7 +43,7 @@ function OthersPage2() {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                console.log("로그인한 유저 : ", response.data.data.userName);
+                // console.log("로그인한 유저 : ", response.data.data.userName);
                 setLoggedInUserName(response.data.data.userName);
             } catch (error) {
                 console.error('사용자 정보를 가져오는 데 실패했습니다:', error);
@@ -53,42 +54,43 @@ function OthersPage2() {
             fetchUserName();
         }
 
+        // 로그인한 유저에게 쓰여진 편지 리스트 가지고 오기
+        const fetchLetters = async (page) => {
+            try {
+                const apiEndpoint = `${API_LETTERS}?page=${page}&userName=${userName}`;
+                const response = await axios.get(apiEndpoint, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                // console.log('편지 리스트:', response.data.data.content);
+                const lettersData = response.data.data.content;
+                setLetters(lettersData);
+                setHasNext(response.data.data.hasNext);
+                setHasPrevious(response.data.data.hasPrevious);
+            } catch (error) {
+                console.error('GET 요청 실패:', error);
+                setLetters([]);
+            }
+        }
         fetchLetters(currentPage);
+
     }, [currentPage, userName, token]);
 
-    // 페이지 주인의 편지 리스트 가지고 오기
-    const fetchLetters = async (page) => {
-        try {
-            const apiEndpoint = `${API_LETTERS}?page=${page}&userName=${userName}`;
-            const response = await axios.get(apiEndpoint, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            console.log('편지 리스트:', response.data.data.content);
-            const lettersData = response.data.data.content;
-            setLetters(lettersData);
-            setHasNext(response.data.data.hasNext);
-            setHasPrevious(response.data.data.hasPrevious);
-        } catch (error) {
-            console.error('GET 요청 실패:', error);
-            setLetters([]);
-        }
-    }
-
-    useEffect(() => {
-        if (location.state && location.state.ornamentId && location.state.from) {
-            const newLetter = {
-                letterId: Date.now(), // 고유한 letterId를 임시로 생성
-                ornamentId: location.state.ornamentId,
-                from: location.state.from
-            };
-            setLetters(prevLetters => [...prevLetters, newLetter]);
-        }
-        if (location.state && location.state.message) {
-            alert(`새 편지: ${location.state.message}`);
-        }
-    }, [location.state]);
+    
+    // useEffect(() => {
+    //     if (location.state && location.state.ornamentId && location.state.from) {
+    //         const newLetter = {
+    //             letterId: Date.now(), // 고유한 letterId를 임시로 생성
+    //             ornamentId: location.state.ornamentId,
+    //             from: location.state.from
+    //         };
+    //         setLetters(prevLetters => [...prevLetters, newLetter]);
+    //     }
+    //     if (location.state && location.state.message) {
+    //         alert(`새 편지: ${location.state.message}`);
+    //     }
+    // }, [location.state]);
 
     const handleOpenModal = () => {
         setModalVisible(true);
@@ -98,9 +100,9 @@ function OthersPage2() {
         setModalVisible(false);
     };
 
-    const handleSelectOrnament = (id) => {
+    const handleSelectIcon = (id) => {
         console.log("선택한 장식 ID : ", id)
-        navigate(`/letter/create`, { state: { ornamentId: id } });
+        navigate(`/letter/create`, { state: { iconId: id } });
     };
 
     const handleNextLevain = () => {
@@ -108,10 +110,9 @@ function OthersPage2() {
     };
 
     const handlePreviousLevain = () => {
-        setCurrentPage((prevPage) => Math.max(prevPage - 1, 0)); // 페이지가 0 이하로 내려가지 않도록 설정
+        setCurrentPage((prevPage) => Math.max(prevPage - 1, 0)); // 페이지가 0 이하로 내려가지 않도록
     };
 
-    const currentLetters = Array.isArray(letters) ? letters.slice(0, 7) : [];
     const isOwner = loggedInUserName === userName;
 
     return (
@@ -124,18 +125,17 @@ function OthersPage2() {
             />
             <img src={levainImage} alt="돌하르방 이미지" className="levain-image" />
             {!isOwner && (
-                <button className="create-letter" onClick={handleOpenModal}>
+                <button className="create-letter" onClick={handleOpenModal} style={{marginTop: "10vh"}}>
                     <span>편지 쓰기</span>
                 </button>
             )}
             <DecorationModal
                 isVisible={modalVisible}
                 onClose={handleCloseModal}
-                onSelect={handleSelectOrnament}
+                onSelect={handleSelectIcon}
                 userName={userName}
             />
-            <div>{userName}</div>
-            {currentLetters.map((letter, index) => {
+            {letters.map((letter, index) => {
                 const position = positions[index];
                 return (
                     <div key={letter.letterId} style={{ ...position, position: 'absolute', top: '50%', left: '50%', width: '80px', height: '80px', textAlign: 'center'}}>
